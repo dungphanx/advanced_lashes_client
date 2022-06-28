@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import * as React from "react"
 import Head from 'next/head'
 import Image from 'next/image'
+import Layout from '../components/Layout'
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +14,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="main">
-        <HomeContent/>
+        <Layout/>
       </main>
 
       <footer className={"footer"}>
@@ -30,14 +31,6 @@ const Home: NextPage = () => {
       </footer>
     </div>
   )
-}
-
-const HomeContent: React.FC<any>  = () => {
-  return <>
-    <div className='cointainer'>
-      <h1>Home Content</h1>
-    </div>
-  </>
 }
 
 export default Home

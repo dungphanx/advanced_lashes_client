@@ -1,0 +1,7 @@
+$top-bar-bg: rgba(255,255,255,0.25);
+$top-bar-color: #aeafb5;
+
+:export {
+  topBarBg: $top-bar-bg;
+  topBarColor: $top-bar-color;
+}
