@@ -1,10 +1,27 @@
-@import './variable.scss';
+@import './variable';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.top-bar {
-  background: $top-bar-bg;
-  color: $top-bar-color;
+@layer base {
+  .top-bar {
+    background: $top-bar-bg;
+    color: $top-bar-color;
+    @apply text-sm flex absolute bottom-0 left-0 w-full h-full box-content;
+
+    .contact {
+      @apply flex;
+
+      .contact-attribute {
+        @apply flex gap-1;
+
+        .attribute-icon {
+          fill: $top-bar-color;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
 }

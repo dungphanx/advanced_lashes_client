@@ -20,7 +20,15 @@ export const TopBar: React.FC<any> = () => {
   )
 
   return <div className="top-bar">
+    <div className='contact'>
+      <div className='contact-attribute'>
+        <i className='fa-solid fa-user' />
+        <div className='text-sm '>contact@advancelashes.com</div>
+      </div>
+    </div>
+    <div className=''>
 
+    </div>
   </div>
 }
 
