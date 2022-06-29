@@ -1,7 +1,7 @@
 import style from './new-feature.module.scss'
 import Image from "next/image";
 import { BsFillCartFill, BsFillBookmarkPlusFill } from 'react-icons/bs';
-import { AiFillIdcard } from 'react-icons/ai'
+import { AiFillIdcard, AiFillGift } from 'react-icons/ai'
 import Panel from "./panel";
 import HoverBox from "./hover-box";
 import PanelTitle from "./panel/panel-title";
@@ -11,6 +11,7 @@ import useSWR from 'swr';
 import { fetcher } from './Layout';
 import { BestSelling } from '../pages/api/best-selling';
 import Product from './product';
+import FloatingButton from './floating-button';
 
 export const NewFeature: React.FC<any>  = () => {
   const hoverBoxFront = <Image src="/images/alisa.png" width={538} height={785} className="bg-transparent" />
@@ -49,6 +50,16 @@ export const NewFeature: React.FC<any>  = () => {
             <BsFillBookmarkPlusFill className="text-2xl"/>
           </button>
         </div>
+      </div>
+      <div className='w-1/2 flex flex-col items-end pr-14'>
+        <Image src='/images/alisa.png' width={335} height={720} layout="fixed" alt='Alisa Phan'/>
+        <FloatingButton className="left-1/2 top-1/2" position="static">
+          <div className='w-24 h-24 bg-rose-500 rounded-full flex flex-col justify-center items-center text-white animate-bounce'>
+            <span className='text-sm font-semibold'>CLASSES</span>
+            <span className='text-2xl font-bold'>2022</span>
+            <span className='text-sm font-semibold'>2nd Quater</span>
+          </div>
+        </FloatingButton>
       </div>
     </div>
 
@@ -104,6 +115,19 @@ export const NewFeature: React.FC<any>  = () => {
       <PanelTitle title="Best Selling Products" className="w-fit"/>
       <BestSellingContent />
     </div>
+
+    {/* reward button */}
+    <FloatingButton className={cn({
+        ["top-1/2"]: true,
+        [style.rewardButton]: true}
+      )}
+      position="static"
+    >
+      <button className='flex text-white text-2xl font-bold bg-black p-3 items-center gap-2'>
+        <AiFillGift />
+        REWARD
+      </button>
+    </FloatingButton>
   </>
 }
 

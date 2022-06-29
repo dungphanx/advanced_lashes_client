@@ -1,7 +1,10 @@
-export const FloatingButton:React.FC<any> = ({ children }) => {
+export const FloatingButton:React.FC<any> = ({ position, className, children }) => {
+  const defaultClass: string = 'bottom-3 right-3';
+  const defaultPositionClass = 'relative'
+
   return <>
-    <div className="relative">
-      <div className='bottom-3 right-3 absolute'>
+    <div className={position ? position : defaultPositionClass}>
+      <div className={['absolute', className ? className : defaultClass].join(' ')}>
         { children }
       </div>
     </div>

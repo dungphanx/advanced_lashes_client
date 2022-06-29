@@ -15,49 +15,47 @@ type Props = {
 
 const Layout: React.FC<any>  = ({ children, home }: Props) => {
   return <>
-    <div className='page'>
-      <header className='page-header'>
-        <TopBar />
-        <Menu />
-      </header>
+    <header className='page-header'>
+      <TopBar />
+      <Menu />
+    </header>
 
-      <main className="w-100 page-content">
-        { children }
-      </main>
+    <main className="w-100 page-content">
+      { children }
+    </main>
 
 
-      <footer className="footer flex items-center gap-5">
-        <Link href="/">
-          <a href='/'>
-            <Image src='/images/logo.png' width={100} height={100} alt="Advanced Lashes"/>
-          </a>
-        </Link>
-        <div className='footer-menu'>
-          <div className='text-base'>2019 © Advance Lashes</div>
-          <div className='flex gap-2'>
-            <Link href='/'>
-              <a>Home</a>
-            </Link>
-            |
-            <Link href='/terms-conditions'>
-              <a>Terms & Conditions</a>
-            </Link>
-            |
-            <Link href='/privacy-policy'>
-              <a>Privacy Policy</a>
-            </Link>
-            |
-            <Link href='/shipping-policy'>
-              <a>Shipping Policy</a>
-            </Link>
-            |
-            <Link href='/contact'>
-              <a>Contact Us</a>
-            </Link>
-          </div>
+    <footer className="footer flex items-center gap-5">
+      <Link href="/">
+        <a href='/'>
+          <Image src='/images/logo.png' width={100} height={100} alt="Advanced Lashes"/>
+        </a>
+      </Link>
+      <div className='footer-menu'>
+        <div className='text-base'>2019 © Advance Lashes</div>
+        <div className='flex gap-2'>
+          <Link href='/'>
+            <a>Home</a>
+          </Link>
+          |
+          <Link href='/terms-conditions'>
+            <a>Terms & Conditions</a>
+          </Link>
+          |
+          <Link href='/privacy-policy'>
+            <a>Privacy Policy</a>
+          </Link>
+          |
+          <Link href='/shipping-policy'>
+            <a>Shipping Policy</a>
+          </Link>
+          |
+          <Link href='/contact'>
+            <a>Contact Us</a>
+          </Link>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   </>
 }
 
