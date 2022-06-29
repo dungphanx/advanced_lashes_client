@@ -6,5 +6,9 @@ module.exports = {
   },
   typescript: {
     ignoreBuildErrors: true,
-  }
+  },
+  images: {
+    domains: ['https://www.advancelashes.com/', 'www.advancelashes.com'],
+    formats: ['image/avif', 'image/webp'],
+  },
 }

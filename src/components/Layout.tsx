@@ -6,16 +6,57 @@ import Image from 'next/image'
 import MenuItem from '../interfaces/menu-item'
 import useSWR from 'swr'
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+export const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-const Layout: React.FC<any>  = () => {
+type Props = {
+  children: React.ReactNode,
+  home?: boolean
+}
+
+const Layout: React.FC<any>  = ({ children, home }: Props) => {
   return <>
     <div className='page'>
       <header className='page-header'>
         <TopBar />
         <Menu />
       </header>
-      <h1>Home Content</h1>
+
+      <main className="w-100 page-content">
+        { children }
+      </main>
+
+
+      <footer className="footer flex items-center gap-5">
+        <Link href="/">
+          <a href='/'>
+            <Image src='/images/logo.png' width={100} height={100} alt="Advanced Lashes"/>
+          </a>
+        </Link>
+        <div className='footer-menu'>
+          <div className='text-base'>2019 © Advance Lashes</div>
+          <div className='flex gap-2'>
+            <Link href='/'>
+              <a>Home</a>
+            </Link>
+            |
+            <Link href='/terms-conditions'>
+              <a>Terms & Conditions</a>
+            </Link>
+            |
+            <Link href='/privacy-policy'>
+              <a>Privacy Policy</a>
+            </Link>
+            |
+            <Link href='/shipping-policy'>
+              <a>Shipping Policy</a>
+            </Link>
+            |
+            <Link href='/contact'>
+              <a>Contact Us</a>
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   </>
 }

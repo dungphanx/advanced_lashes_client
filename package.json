@@ -15,6 +15,7 @@
   "dependencies": {
     "@babel/helper-module-imports": "^7.18.6",
     "babel-plugin-macros": "^3.1.0",
+    "classnames": "^2.3.1",
     "i": "^0.3.7",
     "next": "12.1.6",
     "npm": "^8.13.1",

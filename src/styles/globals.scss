@@ -7,11 +7,13 @@ body {
   margin: 0;
   font-family: Inter,-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    background-color: #f4f5f9;
-    color: #4d4d4d;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -0.005em;
+  background-color: #f4f5f9;
+  color: #4d4d4d;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+  height: 100%;
+  overflow: auto;
 }
 
 a {

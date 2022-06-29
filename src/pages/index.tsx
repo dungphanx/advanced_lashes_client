@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Layout from '../components/Layout'
 import Script from 'next/script'
+import NewFeature from '../components/new-feature'
 
 const Home: NextPage = () => {
   return (
@@ -16,22 +17,9 @@ const Home: NextPage = () => {
         <Script src="https://kit.fontawesome.com/7c53527557.js" crossOrigin="anonymous" />
       </Head>
 
-      <main className="main">
-        <Layout/>
-      </main>
-
-      <footer className={"footer"}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={"logo"}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <Layout>
+        <NewFeature />
+      </Layout>
     </div>
   )
 }
