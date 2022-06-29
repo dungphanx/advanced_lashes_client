@@ -1,10 +1,12 @@
 import useSwr from 'swr'
 import { useRouter } from 'next/router'
 import { BsEnvelopeFill, BsPhoneFill, BsClockFill, BsFacebook, BsTwitter, BsFillCartFill, BsSearch } from 'react-icons/bs'
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
 import Link from 'next/link'
 import Image from 'next/image'
 import MenuItem from '../interfaces/menu-item'
 import useSWR from 'swr'
+import React, { useState } from 'react'
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -14,10 +16,12 @@ type Props = {
 }
 
 const Layout: React.FC<any>  = ({ children, home }: Props) => {
+  const lgScreen = window.innerWidth > 1200;
   return <>
     <header className='page-header'>
-      <TopBar />
+      { lgScreen ? <TopBar /> : null }
       <Menu />
+      <MobileMenu />
     </header>
 
     <main className="w-100 page-content">
@@ -25,7 +29,7 @@ const Layout: React.FC<any>  = ({ children, home }: Props) => {
     </main>
 
 
-    <footer className="footer flex items-center gap-5">
+    <footer className="footer flex items-center gap-5 md:flex-col md:h-20 sm:h-20">
       <Link href="/">
         <a href='/'>
           <Image src='/images/logo.png' width={100} height={100} alt="Advanced Lashes"/>
@@ -76,7 +80,7 @@ export const MenuItems: React.FC<any> = () => {
   if (isLoading) return <div>Loading..</div>
   if (isError) return <div>Error..</div>
 
-  return <ul className="flex gap-5 mt-3">
+  return <ul className="menu-items flex gap-5 mt-3">
     {
       data.map((menuItem: MenuItem) =>
         <li className={ router.pathname == menuItem.url ? 'nav-item active' : 'nav-item' }>
@@ -94,16 +98,45 @@ export const MenuItems: React.FC<any> = () => {
 }
 
 export const MenuUtil: React.FC<any> = () => {
+  const [showMenuDialog, setShowMenuDialog] = useState(false);
+  const openMenuDialog = () => setShowMenuDialog(true);
+  const closeMenuDialog = () => setShowMenuDialog(false);
+
   return <>
-    <div className='flex gap-5 items-center float-right'>
-      <div className='flex gap-1'>
-        <BsFillCartFill className='text-xl'/>
-        <div className=''>$0.00</div>
+    <div className='flex gap-5 items-center'>
+      <div className='menu-util flex gap-5 items-center float-right'>
+        <div className='flex gap-1'>
+          <BsFillCartFill className='text-xl'/>
+          <div className=''>$0.00</div>
+        </div>
+        <div className='flex gap-1 cursor-pointer'>
+          <BsSearch className='text-xl' />
+          <div className='text-base'>Search</div>
+        </div>
       </div>
-      <div className='flex gap-1 cursor-pointer'>
-        <BsSearch className='text-xl' />
-        <div className='text-base'>Search</div>
-      </div>
+      {/* menu hambuger */}
+      { showMenuDialog ? <div className="modal" id='menu-hambuger'>
+          <div className='w-4/5 p-10 bg-white h-full float-right flex flex-col'>
+            <div className='flex w-full justify-end'>
+              <button
+                className='bg-rose-500 text-white w-fit p-1 drop-shadow'
+                onClick={() => {closeMenuDialog()}}
+              >
+                <AiOutlineClose className='text-2xl'/>
+              </button>
+            </div>
+            <MenuItems />
+            <div>
+              <TopBar />
+            </div>
+          </div>
+        </div> :
+        null
+      }
+      {/* menu hambuger button */}
+      <button onClick={() => {openMenuDialog()}}>
+        <AiOutlineMenu className='text-3xl'/>
+      </button>
     </div>
   </>
 }
@@ -130,6 +163,27 @@ export const Menu: React.FC<any> = () => {
   </>
 }
 
+export const MobileMenu: React.FC<any> = () => {
+  const router = useRouter();
+
+  return <>
+    <div className='mobile-menu px-5 bg-slate-50 flex items-center'>
+      <div className='menu-left'>
+        <Link className='logo' href={router.basePath}>
+          <Image
+            src='/images/logo.png'
+            width={40}
+            height={40}
+            alt="Advanced Lashes"
+            className='cursor-pointer bg-white rounded-full ring-0'
+          />
+        </Link>
+        <MenuUtil/>
+      </div>
+    </div>
+  </>
+}
+
 export const TopBar: React.FC<any> = () => {
   // const router = useRouter();
   const { data, error } = useSwr(
@@ -143,7 +197,7 @@ export const TopBar: React.FC<any> = () => {
   if (!data) return <div>loading...</div>
 
   return <>
-    <div className='flex justify-between'>
+    <div className='top-bar flex justify-between'>
       <div className='contact pl-10'>
         <div className='contact-attribute'>
           <BsEnvelopeFill className='contact-icon' onClick={(e) => {
@@ -162,9 +216,9 @@ export const TopBar: React.FC<any> = () => {
           <div className='contact-value'>{ data.schedule }</div>
         </div>
       </div>
-      <div className='social'>
-        <BsFacebook className='text-xl cursor-pointer text-slate-400' onClick={() => { window.open(facebookUrl, '_blank').focus(); }}/>
-        <BsTwitter className='text-xl cursor-pointer text-slate-400'/>
+      <div className='social text-xl text-slate-400'>
+        <BsFacebook className='cursor-pointer' onClick={() => { window.open(facebookUrl, '_blank').focus(); }}/>
+        <BsTwitter className='cursor-pointer'/>
       </div>
     </div>
   </>
