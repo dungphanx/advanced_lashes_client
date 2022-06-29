@@ -1,7 +1,11 @@
-$top-bar-bg: rgba(255,255,255,0.25);
+$background-color: #f4f5f9;
+$default-color: #4d4d4d;
+$top-bar-bg: #85868c;
 $top-bar-color: #aeafb5;
 
 :export {
+  backgroundColor: $background-color;
+  defaultColor: $default-color;
   topBarBg: $top-bar-bg;
   topBarColor: $top-bar-color;
 }

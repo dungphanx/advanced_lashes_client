@@ -5,21 +5,57 @@
 @tailwind utilities;
 
 @layer base {
-  .top-bar {
-    background: $top-bar-bg;
-    color: $top-bar-color;
-    @apply text-sm flex absolute bottom-0 left-0 w-full h-full box-content;
+  header.page-header {
+    @apply fixed top-0 left-0 w-full;
+    background-color: $top-bar-bg;
+    box-shadow: 0px 1px 2px rgb(0 0 0 / 10%);
+    z-index: 10;
 
     .contact {
-      @apply flex;
+      @apply w-full flex gap-2 overflow-x-auto;
+      height: 36px;
+      background: rgba(0,0,0,.5);
 
       .contact-attribute {
-        @apply flex gap-1;
+        @apply flex gap-1 items-center overflow-x-auto;
 
-        .attribute-icon {
-          fill: $top-bar-color;
-          width: 16px;
-          height: 16px;
+        .contact-icon {
+          @apply text-base text-slate-400;
+        }
+
+        .contact-value {
+          @apply text-base font-medium text-slate-400;
+        }
+      }
+    }
+
+    .social {
+      @apply flex text-right items-center gap-2 pr-10;
+      background: rgba(0,0,0,.5);
+    }
+
+    .menu {
+      @apply grid items-center bg-gray-900;
+      height: 100px;
+
+      .menu-left {
+        @apply flex text-gray-50 gap-10;
+
+        .nav-item {
+          &.active, &:hover {
+            i.underline {
+              @apply w-full;
+            }
+          }
+
+          i.underline {
+            @apply block w-0 mt-1;
+            left: 1px;
+            background-color: #d8717e;
+            height: 2px;
+            opacity: .85;
+            transition: all .3s cubic-bezier(.175,.885,.32,1.275);
+          }
         }
       }
     }
