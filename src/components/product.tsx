@@ -34,11 +34,11 @@ export const FloatingButtonContent: React.FC<any> = () => {
 
   return <FloatingButton>
     <button
-      className="text-2xl text-white font-bold bg-rose-500 p-2 rounded-full flex gap-3"
+      className="text-2xl text-white font-bold bg-rose-500 p-2 rounded-full flex gap-3 hover:translate-x-0"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      { isHovering ? <span className="text-base">Selec option</span> : null }
+      { isHovering ? <span className="text-base ease-in-out duration-300 transition-shadow">Selec option</span> : null }
       <AiOutlineUnorderedList/>
     </button>
   </FloatingButton>
