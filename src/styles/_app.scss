@@ -63,10 +63,6 @@
     .menu {
       @apply grid items-center bg-gray-900;
       height: 100px;
-
-      @media only screen and (max-width: 640px) {
-        display: none;
-      }
     }
 
     .menu-util {
@@ -101,6 +97,10 @@
         @media only screen and (max-width: 640px) {
           @apply flex-col border-b-2 border-gray-200;
 
+          &.active, &:hover {
+            @apply text-rose-300;
+          }
+
           i.underline {
             display: none
           }
@@ -115,7 +115,7 @@
   }
 
   footer.footer {
-    @apply w-full bottom-0 px-10 text-white text-base;
+    @apply w-full bottom-0 px-10 text-white text-base flex items-center gap-5 sm:h-20;
     background: #1a1c20 none repeat center top;
 
     @media only screen and (max-width: 640px) {
@@ -130,8 +130,7 @@
 
   .menu-items {
     @media only screen and (max-width: 640px) {
-      @apply flex-col;
-
+      @apply flex gap-2 flex-wrap justify-center;
       a {
         i.underline {
           display: none;

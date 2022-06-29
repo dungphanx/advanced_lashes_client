@@ -1,12 +1,12 @@
 import useSwr from 'swr'
 import { useRouter } from 'next/router'
-import { BsEnvelopeFill, BsPhoneFill, BsClockFill, BsFacebook, BsTwitter, BsFillCartFill, BsSearch } from 'react-icons/bs'
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
+import { BsFacebook, BsTwitter, BsFillCartFill, BsSearch } from 'react-icons/bs'
+import { AiOutlineMenu, AiOutlineClose, AiFillClockCircle, AiFillPhone, AiFillMail } from 'react-icons/ai'
 import Link from 'next/link'
 import Image from 'next/image'
 import MenuItem from '../interfaces/menu-item'
 import useSWR from 'swr'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -16,12 +16,28 @@ type Props = {
 }
 
 const Layout: React.FC<any>  = ({ children, home }: Props) => {
-  const lgScreen = window.innerWidth > 1200;
+  const [lgScreen, setLgScreen] = useState(false)
+
+  useEffect(function mount() {
+    setLgScreen(window.innerWidth >= 1080);
+  })
+
+  useLayoutEffect(() => {
+    function updateSize() {
+      setLgScreen(window.innerWidth >= 1080);
+    }
+
+    window.addEventListener('resize', updateSize);
+
+    updateSize();
+
+    return () => window.removeEventListener('resize', updateSize);
+  })
+
   return <>
     <header className='page-header'>
       { lgScreen ? <TopBar /> : null }
-      <Menu />
-      <MobileMenu />
+      { lgScreen ? <Menu lgScreen={lgScreen}/> : <MobileMenu />}
     </header>
 
     <main className="w-100 page-content">
@@ -29,7 +45,7 @@ const Layout: React.FC<any>  = ({ children, home }: Props) => {
     </main>
 
 
-    <footer className="footer flex items-center gap-5 md:flex-col md:h-20 sm:h-20">
+    <footer className="footer">
       <Link href="/">
         <a href='/'>
           <Image src='/images/logo.png' width={100} height={100} alt="Advanced Lashes"/>
@@ -37,7 +53,7 @@ const Layout: React.FC<any>  = ({ children, home }: Props) => {
       </Link>
       <div className='footer-menu'>
         <div className='text-base'>2019 © Advance Lashes</div>
-        <div className='flex gap-2'>
+        <div className='menu-items'>
           <Link href='/'>
             <a>Home</a>
           </Link>
@@ -73,7 +89,7 @@ const useMenu = () => {
   }
 }
 
-export const MenuItems: React.FC<any> = () => {
+export const MenuItems: React.FC<any> = ({ lgScreen }) => {
   const router = useRouter();
   const { data, isLoading, isError } = useMenu();
 
@@ -97,7 +113,7 @@ export const MenuItems: React.FC<any> = () => {
   </ul>
 }
 
-export const MenuUtil: React.FC<any> = () => {
+export const MenuUtil: React.FC<any> = ({ lgScreen }) => {
   const [showMenuDialog, setShowMenuDialog] = useState(false);
   const openMenuDialog = () => setShowMenuDialog(true);
   const closeMenuDialog = () => setShowMenuDialog(false);
@@ -115,7 +131,8 @@ export const MenuUtil: React.FC<any> = () => {
         </div>
       </div>
       {/* menu hambuger */}
-      { showMenuDialog ? <div className="modal" id='menu-hambuger'>
+      { showMenuDialog ?
+        <div className="modal" id='menu-hambuger'>
           <div className='w-4/5 p-10 bg-white h-full float-right flex flex-col'>
             <div className='flex w-full justify-end'>
               <button
@@ -134,14 +151,15 @@ export const MenuUtil: React.FC<any> = () => {
         null
       }
       {/* menu hambuger button */}
-      <button onClick={() => {openMenuDialog()}}>
-        <AiOutlineMenu className='text-3xl'/>
-      </button>
+      { lgScreen ? null : <button onClick={() => {openMenuDialog()}}>
+          <AiOutlineMenu className='text-3xl'/>
+        </button>
+      }
     </div>
   </>
 }
 
-export const Menu: React.FC<any> = () => {
+export const Menu: React.FC<any> = ({ lgScreen }) => {
   const router = useRouter();
 
   return <>
@@ -157,7 +175,7 @@ export const Menu: React.FC<any> = () => {
           />
         </Link>
         <MenuItems />
-        <MenuUtil />
+        <MenuUtil lgScreen={lgScreen}/>
       </div>
     </div>
   </>
@@ -175,10 +193,12 @@ export const MobileMenu: React.FC<any> = () => {
             width={40}
             height={40}
             alt="Advanced Lashes"
-            className='cursor-pointer bg-white rounded-full ring-0'
+            className='cursor-pointer bg-white rounded-full ring-0 fill-slate-600'
+            layout='intrinsic'
+            priority
           />
         </Link>
-        <MenuUtil/>
+        <MenuUtil lgScreen={false}/>
       </div>
     </div>
   </>
@@ -200,7 +220,7 @@ export const TopBar: React.FC<any> = () => {
     <div className='top-bar flex justify-between'>
       <div className='contact pl-10'>
         <div className='contact-attribute'>
-          <BsEnvelopeFill className='contact-icon' onClick={(e) => {
+          <AiFillMail className='contact-icon' onClick={(e) => {
               window.location.href = data.email;
               e.preventDefault();
             }
@@ -208,12 +228,12 @@ export const TopBar: React.FC<any> = () => {
           <div className='contact-value cursor-pointer'>{ data.email }</div>
         </div>
         <div className='contact-attribute'>
-          <BsPhoneFill className='contact-icon'/>
+          <AiFillPhone className='contact-icon'/>
           <div className='contact-value'>{ data.phone }</div>
         </div>
         <div className='contact-attribute'>
-          <BsClockFill className='contact-icon'/>
-          <div className='contact-value'>{ data.schedule }</div>
+          <AiFillClockCircle className='contact-icon'/>
+          <div className='contact-value overflow-auto'>{ data.schedule }</div>
         </div>
       </div>
       <div className='social text-xl text-slate-400'>
