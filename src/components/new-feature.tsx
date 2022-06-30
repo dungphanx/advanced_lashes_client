@@ -13,7 +13,7 @@ import { BestSelling } from '../pages/api/best-selling';
 import Product from './product';
 import FloatingButton from './floating-button';
 
-export const NewFeature: React.FC<any>  = () => {
+export const NewFeature: React.FC<any>  = ({ lgScreen }) => {
   const hoverBoxFront = <Image src="/images/alisa.png" width={538} height={785} className="bg-transparent" />
 
   const hoverBoxBack = <div className="p-5 bg-slate-50 text-center justify-center flex flex-col gap-10 text-xl">
@@ -33,43 +33,53 @@ export const NewFeature: React.FC<any>  = () => {
 
   return <>
     {/* course */}
-    <div className="new-feature flex items-center">
-      <div className="description w-1/2 flex flex-col items-center gap-3">
+    <div className={cn({
+        ["new-feature flex items-center"]: true,
+        ["flex-col justify-center"]: !lgScreen
+      })}
+    >
+      <div className={["description flex flex-col items-center gap-3", lgScreen ? 'w-1/2' : 'w-full'].join(' ')}>
         <Image
           src="/images/feature.png"
-          width={472}
-          height={321}
+          width={lgScreen ? 472 : 856}
+          height={lgScreen ? 321 : 640}
+          layout="intrinsic"
         />
-        <div className="flex gap-5 text-white text-xl font-bold">
-          <button className="bg-green-600 hover:bg-green-500 p-5 flex gap-2">
-            <span>REGISTRATION</span>
+        <div className={cn({
+          ["flex gap-5 text-white text-xl font-bold"]: true,
+          ["flex-col"]: !lgScreen
+        })}>
+          <button className="bg-green-600 hover:bg-green-500 p-5 flex gap-2 justify-center">
             <BsFillCartFill className="text-2xl" />
-          </button>
-          <button className="bg-neutral-500 hover:bg-neutral-400 p-5 flex gap-2">
             <span>REGISTRATION</span>
+          </button>
+          <button className="bg-neutral-500 hover:bg-neutral-400 p-5 flex gap-2 justify-center">
             <BsFillBookmarkPlusFill className="text-2xl"/>
+            <span>ACADEMY</span>
           </button>
         </div>
-      </div>
-      <div className='w-1/2 flex flex-col items-end pr-14'>
-        <Image src='/images/alisa.png' width={335} height={720} layout="fixed" alt='Alisa Phan'/>
-        <FloatingButton className="left-1/2 top-1/2" position="static">
-          <div className='w-24 h-24 bg-rose-500 rounded-full flex flex-col justify-center items-center text-white animate-bounce'>
-            <span className='text-sm font-semibold'>CLASSES</span>
-            <span className='text-2xl font-bold'>2022</span>
-            <span className='text-sm font-semibold'>2nd Quater</span>
-          </div>
-        </FloatingButton>
       </div>
     </div>
 
     {/* Description */}
-    <div className="description flex">
-      <div className="w-1/2">
+    <div className={cn({
+        ["description flex"]: true,
+        ['flex-col']: !lgScreen
+      })}
+    >
+      <div className={cn({
+          ["w-1/2"]: lgScreen,
+          ["w-full"]: !lgScreen
+        })}
+      >
         <HoverBox front={hoverBoxFront} back={hoverBoxBack} />
         <PanelTitle title="Master Trainer - Alisa Phan" />
       </div>
-      <div className="w-1/2 pl-10">
+      <div className={cn({
+          ["w-1/2 pl-10"]: lgScreen,
+          ["w-full mt-5"]: !lgScreen
+        })}
+      >
         <Panel title="What We do" titleAlign="text-left">
           <div className="text-2xl flex flex-col gap-10 text-neutral-500 leading-9">
             <p><strong>AdvanceLashes</strong> distributes leading eyelash extensions, and eyelash products to Lash Artists, Salons, and stores throughout United States. <strong>AdvanceLashes</strong> has emerged to meet the demand for premium quality products within and outside United States.</p>
@@ -92,15 +102,26 @@ export const NewFeature: React.FC<any>  = () => {
 
     {/* Shop */}
     <div className={cn({[style.shop]: true})}>
-      <div className='flex'>
-        <div className="w-1/2">
+      <div className={cn({
+            ["flex"]: true,
+            ["flex-col"]: !lgScreen
+          })}>
+        <div className={cn({
+            ["w-1/2"]: lgScreen,
+            ["w-full mt-5"]: !lgScreen
+          })}
+        >
           <Panel title="AdvanceLashes Shop" titleAlign="text-left">
             <div className='text-2xl mt-20 text-slate-400'>
               <p>We provide the highest quality and most innovative eyelash extension products at an affordable price. We believe that making the extension process more efficient means that extensions can be done faster at low price, drawing even more consumers to the market. We are committed to making each AdvanceLashes customer loyal to the brand by providing a memorable experience through great prices, great products and great customer service.</p>
             </div>
           </Panel>
         </div>
-        <div className='w-1/2 p-10'>
+        <div className={cn({
+            ["w-1/2 pl-10"]: lgScreen,
+            ["w-full mt-5"]: !lgScreen
+          })}
+        >
           <Link href="/shop">
             <a>
               <Image src="/images/shop.png" width={540} height={360} alt="shop" />
@@ -113,19 +134,20 @@ export const NewFeature: React.FC<any>  = () => {
     {/* best selling */}
     <div className='best-selling mt-10 justify-center flex flex-col items-center'>
       <PanelTitle title="Best Selling Products" className="w-fit"/>
-      <BestSellingContent />
+      <BestSellingContent lgScreen={lgScreen}/>
     </div>
 
     {/* reward button */}
     <FloatingButton className={cn({
-        ["top-1/2"]: true,
-        [style.rewardButton]: true}
-      )}
+        ["top-1/2"]: lgScreen,
+        [style.rewardButton]: lgScreen,
+        ['right-5 bottom-3']: !lgScreen,
+      })}
       position="static"
     >
-      <button className='flex text-white text-2xl font-bold bg-black p-3 items-center gap-2'>
+      <button className={['flex text-white text-4xl font-bold bg-black p-3 items-center gap-2', lgScreen ? '' : 'rounded-full'].join(' ')}>
         <AiFillGift />
-        REWARD
+        { lgScreen ? 'REWARD' : null }
       </button>
     </FloatingButton>
   </>
@@ -141,14 +163,17 @@ const useBestSellings = () => {
   }
 }
 
-export const BestSellingContent:  React.FC<any>  = () => {
+export const BestSellingContent:  React.FC<any>  = ({ lgScreen }) => {
   const { data, isLoading, isError } = useBestSellings();
 
   if (isLoading) return <div>Loading..</div>
   if (isError) return <div>Error..</div>
 
   return <>
-    <div className='mt-10 grid grid-cols-4 gap-4 px-5'>
+    <div className={cn({
+      ['mt-10 grid grid-cols-4 gap-4 px-5']: true,
+      ['grid-cols-1']: !lgScreen
+    })}>
     {
       data.map((item: BestSelling) => {
         return <>

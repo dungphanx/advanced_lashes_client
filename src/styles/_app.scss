@@ -112,6 +112,10 @@
   .page-content {
     margin-top: 136px;
     margin-bottom: 110px;
+
+    @media only screen and (max-width: 640px) {
+      margin-top: 60px;
+    }
   }
 
   footer.footer {

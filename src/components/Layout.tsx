@@ -33,37 +33,7 @@ const Layout: React.FC<any>  = ({ children, home }: Props) => {
     </main>
 
 
-    <footer className="footer">
-      <Link href="/">
-        <a>
-          <Image src='/images/logo.png' width={100} height={100} alt="Advanced Lashes"/>
-        </a>
-      </Link>
-      <div className='footer-menu'>
-        <div className='text-base'>2019 © Advance Lashes</div>
-        <div className='menu-items'>
-          <Link href='/'>
-            <a>Home</a>
-          </Link>
-          |
-          <Link href='/terms-conditions'>
-            <a>Terms & Conditions</a>
-          </Link>
-          |
-          <Link href='/privacy-policy'>
-            <a>Privacy Policy</a>
-          </Link>
-          |
-          <Link href='/shipping-policy'>
-            <a>Shipping Policy</a>
-          </Link>
-          |
-          <Link href='/contact'>
-            <a>Contact Us</a>
-          </Link>
-        </div>
-      </div>
-    </footer>
+    <Footer />
   </>
 }
 
@@ -229,6 +199,42 @@ export const TopBar: React.FC<any> = () => {
         <BsTwitter className='cursor-pointer'/>
       </div>
     </div>
+  </>
+}
+
+export const Footer:React.FC<any> = () => {
+  return <>
+    <footer className="footer">
+      <Link href="/">
+        <a>
+          <Image src='/images/logo.png' width={100} height={100} alt="Advanced Lashes"/>
+        </a>
+      </Link>
+      <div className='footer-menu'>
+        <div className='text-base'>2019 © Advance Lashes</div>
+        <div className='menu-items'>
+          <Link href='/'>
+            <a>Home</a>
+          </Link>
+          |
+          <Link href='/terms-conditions'>
+            <a>Terms & Conditions</a>
+          </Link>
+          |
+          <Link href='/privacy-policy'>
+            <a>Privacy Policy</a>
+          </Link>
+          |
+          <Link href='/shipping-policy'>
+            <a>Shipping Policy</a>
+          </Link>
+          |
+          <Link href='/contact'>
+            <a>Contact Us</a>
+          </Link>
+        </div>
+      </div>
+    </footer>
   </>
 }
 
