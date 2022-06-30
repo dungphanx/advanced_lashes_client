@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import MenuItem from '../interfaces/menu-item'
 import useSWR from 'swr'
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -18,21 +18,9 @@ type Props = {
 const Layout: React.FC<any>  = ({ children, home }: Props) => {
   const [lgScreen, setLgScreen] = useState(false)
 
-  useEffect(function mount() {
+  useEffect(() => {
     setLgScreen(window.innerWidth >= 1080);
-  })
-
-  useLayoutEffect(() => {
-    function updateSize() {
-      setLgScreen(window.innerWidth >= 1080);
-    }
-
-    window.addEventListener('resize', updateSize);
-
-    updateSize();
-
-    return () => window.removeEventListener('resize', updateSize);
-  })
+  }, [])
 
   return <>
     <header className='page-header'>
@@ -99,7 +87,7 @@ export const MenuItems: React.FC<any> = ({ lgScreen }) => {
   return <ul className="menu-items flex gap-5 mt-3">
     {
       data.map((menuItem: MenuItem) =>
-        <li className={ router.pathname == menuItem.url ? 'nav-item active' : 'nav-item' }>
+        <li className={ router.pathname == menuItem.url ? 'nav-item active' : 'nav-item' } key={menuItem.url}>
           <Link href={menuItem.url}>
             <a className='inline-block overflow-hidden'>
               <div className='menu-text text-base'>{ menuItem.text }</div>
