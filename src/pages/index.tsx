@@ -14,8 +14,8 @@ const Home: NextPage = () => {
         <meta name="description" content="Advanced Lashes" />
         <link rel="icon" href="/images/favicon-16x16.png" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css"></link>
-        <Script src="https://kit.fontawesome.com/7c53527557.js" crossOrigin="anonymous" />
       </Head>
+      <Script src="https://kit.fontawesome.com/7c53527557.js" crossOrigin="anonymous" />
 
       <Layout>
         <NewFeature />
