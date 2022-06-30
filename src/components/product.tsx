@@ -11,7 +11,7 @@ export const Product:React.FC<any> = ({ name, imageUrl, url, price }) => {
 
   return <>
     <Link href={url}>
-      <a href={url} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <a onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className="product flex flex-col">
         <div>
           <Image src={imageUrl} width={450} height={450} alt={name} layout="responsive"/>

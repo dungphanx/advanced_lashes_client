@@ -35,7 +35,7 @@ const Layout: React.FC<any>  = ({ children, home }: Props) => {
 
     <footer className="footer">
       <Link href="/">
-        <a href='/'>
+        <a>
           <Image src='/images/logo.png' width={100} height={100} alt="Advanced Lashes"/>
         </a>
       </Link>

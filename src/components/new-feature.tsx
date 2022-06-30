@@ -102,7 +102,7 @@ export const NewFeature: React.FC<any>  = () => {
         </div>
         <div className='w-1/2 p-10'>
           <Link href="/shop">
-            <a href="/shop">
+            <a>
               <Image src="/images/shop.png" width={540} height={360} alt="shop" />
             </a>
           </Link>
